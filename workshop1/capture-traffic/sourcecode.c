@@ -29,7 +29,7 @@
 
 // Data buffer message size. BPF can submit at most this amount of data to a perf buffer.
 // Kernel size limit is 32KiB. See https://github.com/iovisor/bcc/issues/2519 for more details.
-#define MAX_MSG_SIZE 30720  // 30KiB
+#define MAX_MSG_SIZE 30720 // 30KiB
 
 // This defines how many chunks a perf_submit can support.
 // This applies to messages that are over MAX_MSG_SIZE,

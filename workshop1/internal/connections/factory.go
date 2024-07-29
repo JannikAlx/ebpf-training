@@ -50,8 +50,12 @@ func (factory *Factory) HandleReadyConnections() {
 			if len(tracker.sentBuf) == 0 && len(tracker.recvBuf) == 0 {
 				continue
 			}
+            openTime := time.Unix(0, int64(tracker.openTimestamp)).Format(time.RFC3339Nano)
+            closeTime := time.Unix(0, int64(tracker.closeTimestamp)).Format(time.RFC3339Nano)
 			fmt.Printf("========================>\nFound HTTP payload\nRequest->\n%s\n\nResponse->\n%s\n\n<========================\n", tracker.recvBuf, tracker.sentBuf)
-		} else if tracker.Malformed() {
+            fmt.Printf("Connection opened at: %s\n and closed at %s\n", openTime, closeTime)
+            fmt.Printf("Total bytes sent: %d\nTotal bytes received: %d\n", tracker.totalWrittenBytes, tracker.totalReadBytes)
+            } else if tracker.Malformed() {
 			trackersToDelete[connID] = struct{}{}
 		} else if tracker.IsInactive(factory.inactivityThreshold) {
 			trackersToDelete[connID] = struct{}{}

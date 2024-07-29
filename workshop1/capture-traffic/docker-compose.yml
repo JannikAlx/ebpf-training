@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  pinger:
+    image: registry.gitlab.com/komputa/cex-2024/pinger:latest
+    environment:
+      - TARGET=http://capture-traffic-responder-1:3000/respond
+      - OUTPUT=/var/log/my-file.log
+  responder:
+    image: registry.gitlab.com/komputa/cex-2024/responder:latest
+    ports: 
+      - "3000:3000"
+    environment:
+      - OUTPUT=/var/log/my-file.log
+      - PORT=3000
